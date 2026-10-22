@@ -1,0 +1,37 @@
+# Xiaomi Mi Box S: tracking, ads and preloaded extras.
+# Checked on a Mi Box S 2nd Gen (MiTV-AFKR0, Google TV 11).
+#
+#   python tools/tv.py disable --list debloat/xiaomi-mi-box-s.txt
+#
+# Everything is disabled, never uninstalled, and `python tools/tv.py restore` turns it all back on.
+# tv.py refuses anything the box needs (picture, sound, the remote, Wi-Fi, keyboard, Play Store).
+# Lines starting with # are skipped: remove the # in front of an app you don't use to turn it off too.
+
+# Tracking and telemetry
+com.miui.tv.analytics                       # Xiaomi usage analytics, uploaded in the background
+com.xiaomi.statistic                        # collects the box's logs and uploads them
+com.xiaomi.tvqs.overseas                    # quality reports and crash logs sent to Xiaomi
+com.google.android.feedback                 # sends error reports to Google
+
+# Ads, promotions and silent installs
+com.xiaomi.android.tvsetup.partnercustomizer # partner rows and apps on Google TV's home screen
+com.mitv.tvhome.oemtab                      # Xiaomi's tab on Google TV's home screen
+com.mitv.tvhome.michannel                   # pushes Xiaomi content to the home screen
+android.autoinstalls.config.xioami.mibox3   # installs partner apps without asking (Xiaomi's spelling)
+
+# Assistants and games
+#com.google.android.play.games              # Google Play Games
+
+# Xiaomi content
+#com.mitv.tvhome.mitvplus                   # Mi TV+: free channels with ads
+#com.mitv.tvhome.atv                        # PatchWall: Xiaomi's content showcase
+
+# Phone and USB (keep any you use)
+#com.xiaomi.mitv.smartshare                 # send photos and videos from the phone
+#com.mitv.gallery                           # Gallery: photos from a USB drive
+#com.mitv.videoplayer                       # videos from a USB drive
+#com.xiaomi.mimusic2                        # music from a USB drive
+#com.xiaomi.mitv.mediaexplorer              # files on a USB drive
+
+# Screensaver
+#com.google.android.apps.tv.dreamx          # Google's ambient mode (photos and content suggestions)

@@ -6,6 +6,7 @@ buttons, and anything particular about it.
 | TV | Android | Status |
 |---|---|---|
 | [TCL 55C6K](tcl-55c6k.md) | Google TV 14 | Everything works (`home --takeover`) |
+| [Xiaomi Mi Box S 2nd Gen](xiaomi-mi-box-s-2nd-gen.md) | Google TV 11 | Everything works (`home --takeover`; app buttons need the theme's `remote`) |
 
 ## Add yours
 
