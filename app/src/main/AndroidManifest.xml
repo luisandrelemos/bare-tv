@@ -5,6 +5,10 @@
          theme names a place. Without one, Bare makes no network request at all. No analytics, no ads, ever. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Shows AirPlay's screen on MediaTek boards (TCL and others). A normal permission, granted without asking;
+         ignored on TVs that don't have it. -->
+    <uses-permission android:name="com.mediatek.permission.AirPlay.BroadCast" />
+
     <!-- Android 11+: without these, the other TV apps and the live TV app that opens the inputs are invisible. -->
     <queries>
         <intent>
@@ -15,6 +19,8 @@
             <action android:name="android.intent.action.VIEW" />
             <data android:scheme="content" android:host="android.media.tv" android:mimeType="vnd.android.cursor.item/channel" />
         </intent>
+        <!-- AirPlay receivers that have no app icon of their own (Inputs.AIRPLAY). -->
+        <package android:name="com.tcl.airplay2" />
     </queries>
 
     <uses-feature android:name="android.software.leanback" android:required="false" />

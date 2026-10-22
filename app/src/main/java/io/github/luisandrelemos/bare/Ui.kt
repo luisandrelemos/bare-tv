@@ -34,16 +34,35 @@ fun Context.colorIcon(resource: Int) = ImageView(this).apply { setImageResource(
 
 fun linearParams(width: Int, height: Int, weight: Float = 0f) = LinearLayout.LayoutParams(width, height, weight)
 
-/** The frosted look of the buttons, inputs and the weather card. */
-fun Context.glass(theme: Theme, radius: Int) = GradientDrawable().apply {
-    cornerRadius = dp(radius).toFloat()
-    setColor(withAlpha(theme.text, 0x1F))
-    setStroke(dp(1), withAlpha(theme.text, 0x30))
+/** The buttons, inputs and weather card: a thin border around an almost clear inside. */
+class Outline(context: Context, private val theme: Theme, radius: Int) {
+    private val width = maxOf(1, context.dp(1))
+
+    val drawable = GradientDrawable().apply {
+        cornerRadius = context.dp(radius).toFloat()
+        setColor(withAlpha(theme.text, CLEAR))
+        setStroke(width, withAlpha(theme.text, BORDER))
+    }
+
+    /** Focus that fills it with the text color (buttons, inputs). */
+    fun solid(focused: Boolean) {
+        drawable.setColor(if (focused) theme.text else withAlpha(theme.text, CLEAR))
+    }
+
+    /** Focus that only brightens the border, for a box whose content keeps its colors (the weather card). */
+    fun lit(focused: Boolean) {
+        drawable.setStroke(width, withAlpha(theme.text, if (focused) 0xD0 else BORDER))
+    }
+
+    private companion object {
+        const val BORDER = 0x40
+        const val CLEAR = 0x08
+    }
 }
 
-/** Focus on glass: it turns solid, its icon and text take the background's color, and it grows a little. */
-fun View.showGlassFocus(focused: Boolean, glass: GradientDrawable, theme: Theme, scale: Float, icon: ImageView, name: TextView) {
-    glass.setColor(if (focused) theme.text else withAlpha(theme.text, 0x1F))
+/** Focus on an outline: it turns solid, its icon and text take the background's color, and it grows a little. */
+fun View.showOutlineFocus(focused: Boolean, outline: Outline, theme: Theme, scale: Float, icon: ImageView, name: TextView) {
+    outline.solid(focused)
     icon.setColorFilter(if (focused) theme.background else theme.text, PorterDuff.Mode.SRC_IN)
     name.setTextColor(if (focused) theme.background else theme.text)
     val size = if (focused) scale else 1f

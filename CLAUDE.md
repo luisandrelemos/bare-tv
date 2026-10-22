@@ -103,7 +103,7 @@ one brand:
 
 - Whatever differs (the remote's key codes, the live TV app, how inputs open) is a theme key with sensible defaults
   (`Keys` in `RemoteKeys.kt`, `liveTvPackage` / `inputAction` in `Theme.kt`). Known values for more makers go in the
-  default lists (`Inputs.LIVE_TV_APPS`, `tv.py STOCK_HOMES`), with where they were seen.
+  default lists (`Inputs.LIVE_TV_APPS`, `Inputs.AIRPLAY`, `tv.py STOCK_HOMES`), with where they were seen.
 - `tv.py home` finds the TV's own home itself (Home's owner, or a known one among the candidates; `--stock` names it)
   and refuses Fire TV with an explanation. Every change it makes is checked and rolled back if it didn't take.
 - Never force-stop Bare from `tv.py`: it unbinds `RemoteKeys`. Bare reloads a new theme on its own.

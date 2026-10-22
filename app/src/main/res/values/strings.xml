@@ -13,11 +13,13 @@
     <string name="wifi">Wi-Fi</string>
     <string name="settings">Settings</string>
     <string name="live_tv">TV</string>
+    <string name="airplay" translatable="false">AirPlay</string>
     <string name="weather">Weather</string>
     <string name="weather_in">Weather · %1$s</string>
     <string name="weather_source" translatable="false">Open-Meteo</string>
     <string name="weather_loading">Getting the weather…</string>
     <string name="all_apps">All apps</string>
+    <string name="more">More</string>
 
     <string name="favorites_hint">Hold OK on an app to add it to your favorites or take it out</string>
     <string name="dock_empty">Hold OK on an app further down to pin it here</string>

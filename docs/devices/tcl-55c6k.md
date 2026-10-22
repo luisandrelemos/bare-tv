@@ -26,6 +26,12 @@ Tuner `com.tcl.tvinput/.TunerInputService/HW2`, HDMI 1–4 `com.tcl.tvinput/.TvP
 given in the TV's Settings > Inputs shows first ("PC · HDMI 1"). Every HDMI port reports the same state, so Bare
 shows none.
 
+AirPlay is MediaTek's `com.mediatek.AirplayAPK`, a software input with no app icon. Opening it directly gives a black
+screen (its surface for a stream), and tuning its input with nothing playing goes back Home. The TV's Settings show it
+with the broadcast `Show.Settings.AirplayAPK` to `com.tcl.airplay2`, which needs
+`com.mediatek.permission.AirPlay.BroadCast` (a normal permission, which Bare declares): live TV switches to AirPlay
+and AirPlay draws its own screen. That is on the video layer, so `tv.py screenshot` shows it black.
+
 ## Remote buttons
 
 Read with `tools/tv.py keys listen` and the TV's own log (`logcat`, `TIDD: keyCode=`).

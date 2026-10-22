@@ -46,12 +46,13 @@ class Glow(context: Context) {
         }
     }
 
-    /** A wide pool of white light from the top left, behind the clock, fading to nothing. */
+    /** A wide pool of white light a little above the middle, fading to dark edges. */
     private fun shape(): Bitmap {
         val bitmap = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.ARGB_8888)
         val paint = Paint().apply {
-            shader = RadialGradient(WIDTH * 0.18f, HEIGHT * 0.05f, WIDTH * 0.8f,
-                intArrayOf(withAlpha(Color.WHITE, 0x5C), withAlpha(Color.WHITE, 0x24), Color.TRANSPARENT), null, Shader.TileMode.CLAMP)
+            shader = RadialGradient(WIDTH * 0.5f, HEIGHT * 0.36f, WIDTH * 0.62f,
+                intArrayOf(withAlpha(Color.WHITE, 0x3A), withAlpha(Color.WHITE, 0x16), Color.TRANSPARENT),
+                floatArrayOf(0f, 0.45f, 1f), Shader.TileMode.CLAMP)
         }
         Canvas(bitmap).drawRect(0f, 0f, WIDTH.toFloat(), HEIGHT.toFloat(), paint)
         return bitmap

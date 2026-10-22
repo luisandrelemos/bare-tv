@@ -6,8 +6,8 @@ import android.media.tv.TvContract
 import android.media.tv.TvInputInfo
 import android.media.tv.TvInputManager
 
-/** A way to the TV's own picture: live TV, or an HDMI or AV input. */
-class Input(val label: String, val icon: Int, val intent: Intent)
+/** A way to the TV's own picture: live TV, an HDMI or AV input, or AirPlay. Some are asked for by [broadcast]. */
+class Input(val label: String, val icon: Int, val intent: Intent, val broadcast: Boolean = false)
 
 object Inputs {
     /**
@@ -18,12 +18,20 @@ object Inputs {
         "com.tcl.tv", "com.google.android.tv", "com.mediatek.wwtv.tvcenter", "com.sony.dtv.tvx", "com.realtek.tv",
         "com.mitv.livetv", "com.smartdevice.livetv", "com.android.tv",
     )
+    /**
+     * AirPlay receivers built into the TV, and the broadcast that shows their screen (AirPlay draws it itself, the way
+     * the TV's Settings ask for it). MediaTek boards (TCL 55C6K).
+     */
+    private val AIRPLAY = listOf(
+        "com.tcl.airplay2" to "Show.Settings.AirplayAPK",
+    )
     private const val CHANNEL_TYPE = "vnd.android.cursor.item/channel"
     /** The framework names hardware inputs ".../HW<n>"; system apps such as AirPlay also register software "tuners". */
     private val HARDWARE = Regex(".*/HW\\d+$")
 
     /**
-     * Live TV first, then the HDMI ports in order, then AV. Inputs hidden in the TV's Settings > Inputs stay hidden.
+     * Live TV first, then the HDMI ports in order, then AV, then AirPlay. Inputs hidden in the TV's Settings > Inputs
+     * stay hidden.
      * A TV without the TV input framework (a streaming box) has none, and Home shows no Inputs at all.
      */
     fun load(context: Context, theme: Theme): List<Input> {
@@ -46,6 +54,7 @@ object Inputs {
             val label = if (given != null && given != name) "$given · $name" else name
             inputs += Input(label, if (hdmi) R.drawable.ic_hdmi else R.drawable.ic_input, open(context, theme, (device ?: port).id))
         }
+        airPlay(context)?.let { inputs += Input(context.getString(R.string.airplay), R.drawable.ic_airplay, it, broadcast = true) }
         return inputs
     }
 
@@ -74,6 +83,10 @@ object Inputs {
         }
         return null
     }
+
+    private fun airPlay(context: Context): Intent? = AIRPLAY
+        .map { (pkg, action) -> Intent(action).setPackage(pkg) }
+        .firstOrNull { context.packageManager.queryBroadcastReceivers(it, 0).isNotEmpty() }
 
     /** The input's own name, "HDMI 1". */
     private fun port(context: Context, info: TvInputInfo): String =

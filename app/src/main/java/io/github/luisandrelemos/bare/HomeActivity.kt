@@ -14,6 +14,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
 import android.view.KeyEvent
@@ -269,11 +270,6 @@ class HomeActivity : Activity() {
             }.also { shade -> root.addView(shade, fill()) }
         }
         val light = glow?.view
-        // Darkens the bottom so the favorites read on any background.
-        root.addView(View(this).apply {
-            background = GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
-                intArrayOf(withAlpha(theme.background, 0xE0), withAlpha(theme.background, 0)))
-        }, FrameLayout.LayoutParams(MATCH_PARENT, screenHeight / 2, Gravity.BOTTOM))
 
         val column = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
@@ -316,23 +312,27 @@ class HomeActivity : Activity() {
         target?.requestFocus()
     }
 
-    /** The first screen: header top left, buttons top right, favorites along the bottom. */
+    /** The first screen: header top left, buttons top right, favorites a little past the middle, "more" at the bottom. */
     private fun hero(theme: Theme, dockApps: List<App>) = Faded(this).apply {
         clipChildren = false
         header = Header(context, theme).also {
             addView(it.view, FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.TOP or Gravity.START).apply {
                 leftMargin = dp(SIDE)
-                topMargin = dp(60)
+                // The greeting's line sits on the same middle as the buttons beside it.
+                topMargin = dp(BUTTONS_TOP + (BUTTON_HEIGHT - Header.GREETING_HEIGHT) / 2)
             })
         }
         addView(pills(theme), FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.TOP or Gravity.END).apply {
             rightMargin = dp(SIDE)
-            topMargin = dp(32)
+            topMargin = dp(BUTTONS_TOP)
         })
-        addView(favorites(theme, dockApps), FrameLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT, Gravity.BOTTOM).apply {
+        addView(favorites(theme, dockApps), FrameLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT, Gravity.TOP).apply {
             leftMargin = dp(SIDE)
             rightMargin = dp(SIDE)
-            bottomMargin = dp(28)
+            topMargin = (resources.displayMetrics.heightPixels * DOCK_TOP).toInt()
+        })
+        addView(belowHint(theme), FrameLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL).apply {
+            bottomMargin = dp(22)
         })
     }
 
@@ -353,20 +353,20 @@ class HomeActivity : Activity() {
 
     /** A capsule with an icon and its name. */
     private fun pill(theme: Theme, icon: Int, name: Int, onClick: () -> Unit): View {
-        val glass = glass(theme, 24)
+        val outline = Outline(this, theme, BUTTON_HEIGHT / 2)
         val image = icon(icon, theme.text)
-        val label = label(getString(name), 15f, theme.text, "sans-serif-medium")
+        val label = label(getString(name), 14f, theme.text, "sans-serif-medium")
         return LinearLayout(this).apply {
             gravity = Gravity.CENTER_VERTICAL
-            background = glass
+            background = outline.drawable
             isFocusable = true
             isClickable = true
-            setPadding(dp(16), 0, dp(20), 0)
-            addView(image, linearParams(dp(20), dp(20)))
-            addView(label, linearParams(WRAP_CONTENT, WRAP_CONTENT).apply { marginStart = dp(10) })
-            layoutParams = linearParams(WRAP_CONTENT, dp(44))
+            setPadding(dp(14), 0, dp(18), 0)
+            addView(image, linearParams(dp(18), dp(18)))
+            addView(label, linearParams(WRAP_CONTENT, WRAP_CONTENT).apply { marginStart = dp(9) })
+            layoutParams = linearParams(WRAP_CONTENT, dp(BUTTON_HEIGHT))
             setOnClickListener { onClick() }
-            setOnFocusChangeListener { _, focused -> showGlassFocus(focused, glass, theme, 1.06f, image, label) }
+            setOnFocusChangeListener { _, focused -> showOutlineFocus(focused, outline, theme, 1.06f, image, label) }
         }
     }
 
@@ -374,8 +374,6 @@ class HomeActivity : Activity() {
         orientation = LinearLayout.VERTICAL
         clipChildren = false
         clipToPadding = false
-        addView(belowHint(theme), linearParams(WRAP_CONTENT, WRAP_CONTENT).apply { bottomMargin = dp(14) })
-
         val row = LinearLayout(context).apply { clipChildren = false }
         dock = row
         if (apps.isEmpty()) {
@@ -384,7 +382,7 @@ class HomeActivity : Activity() {
         }
         val width = dockTileWidth(apps.size)
         apps.forEachIndexed { i, app ->
-            val tile = Tile(context, app, theme, width, nameOnFocus = true)
+            val tile = Tile(context, app, theme, width, dock = true)
             tile.onFocus = {
                 lastDockApp = app.packageName
                 page?.glideTo(0)
@@ -398,21 +396,14 @@ class HomeActivity : Activity() {
         addView(row)
     }
 
-    /** "⌄ INPUTS · WEATHER · ALL APPS": what's below the favorites. */
+    /** "MORE ⌄": there's more below the favorites. */
     private fun belowHint(theme: Theme) = LinearLayout(this).apply {
         gravity = Gravity.CENTER_VERTICAL
-        addView(icon(R.drawable.ic_chevron_down, theme.dim), linearParams(dp(16), dp(16)))
-        val below = shownSections(theme).map {
-            getString(when (it) {
-                "inputs" -> R.string.inputs
-                "weather" -> R.string.weather
-                else -> R.string.all_apps
-            })
-        }
-        addView(label(below.joinToString("  ·  "), 12f, theme.dim, "sans-serif-medium").apply {
-            letterSpacing = 0.16f
+        addView(label(getString(R.string.more), 12f, theme.dim, "sans-serif-medium").apply {
+            letterSpacing = 0.2f
             isAllCaps = true
-        }, linearParams(WRAP_CONTENT, WRAP_CONTENT).apply { marginStart = dp(8) })
+        }, linearParams(WRAP_CONTENT, WRAP_CONTENT))
+        addView(icon(R.drawable.ic_chevron_down, theme.dim), linearParams(dp(16), dp(16)).apply { marginStart = dp(6) })
     }
 
     private fun dockTileWidth(count: Int): Int {
@@ -442,29 +433,37 @@ class HomeActivity : Activity() {
             setPadding(dp(6), dp(6), dp(6), dp(6))
         }
         content.inputs.forEachIndexed { i, input ->
-            row.addView(inputChip(theme, input, section, i), linearParams(WRAP_CONTENT, WRAP_CONTENT).apply { if (i > 0) marginStart = dp(14) })
+            row.addView(inputChip(theme, input, section, i), linearParams(0, dp(INPUT_HEIGHT), 1f).apply { if (i > 0) marginStart = dp(GRID_GAP) })
         }
         row.pinEnds()
         inputsRow = row
-        section.addView(row, linearParams(MATCH_PARENT, WRAP_CONTENT).apply { leftMargin = -dp(6) })
+        section.addView(row, linearParams(MATCH_PARENT, WRAP_CONTENT).apply {
+            leftMargin = -dp(6)
+            rightMargin = -dp(6)
+        })
         return section
     }
 
+    /** A card for one input, its icon over its name; the inputs share the width between the margins. */
     private fun inputChip(theme: Theme, input: Input, section: View, index: Int): View {
-        val glass = glass(theme, 16)
+        val outline = Outline(this, theme, theme.cornerRadius.toInt())
         val image = icon(input.icon, theme.text)
-        val label = label(input.label, 17f, theme.text)
+        val label = label(input.label, 15f, theme.text).apply {
+            maxLines = 1
+            ellipsize = TextUtils.TruncateAt.END
+        }
         return LinearLayout(this).apply {
-            gravity = Gravity.CENTER_VERTICAL
-            background = glass
+            orientation = LinearLayout.VERTICAL
+            gravity = Gravity.CENTER
+            background = outline.drawable
             isFocusable = true
             isClickable = true
-            setPadding(dp(20), dp(14), dp(24), dp(14))
-            addView(image, linearParams(dp(22), dp(22)))
-            addView(label, linearParams(WRAP_CONTENT, WRAP_CONTENT).apply { marginStart = dp(12) })
-            setOnClickListener { open(input.intent, input.label) }
+            setPadding(dp(10), 0, dp(10), 0)
+            addView(image, linearParams(dp(30), dp(30)))
+            addView(label, linearParams(WRAP_CONTENT, WRAP_CONTENT).apply { topMargin = dp(12) })
+            setOnClickListener { if (input.broadcast) sendBroadcast(input.intent) else open(input.intent, input.label) }
             setOnFocusChangeListener { _, focused ->
-                showGlassFocus(focused, glass, theme, 1.05f, image, label)
+                showOutlineFocus(focused, outline, theme, 1.05f, image, label)
                 if (focused) {
                     lastInput = index
                     center(section)
@@ -619,10 +618,15 @@ class HomeActivity : Activity() {
     private fun fill() = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
 
     companion object {
-        private const val SIDE = 64
+        private const val SIDE = 80
+        private const val BUTTONS_TOP = 60
+        private const val BUTTON_HEIGHT = 38
+        /** Where the favorites start, as a share of the screen's height. */
+        private const val DOCK_TOP = 0.61f
         private const val DOCK_GAP = 18
         private const val DOCK_TILE_MAX = 168
         private const val GRID_GAP = 20
+        private const val INPUT_HEIGHT = 108
         private const val KEY_LOG = "BareKeys"
         private val MOVE_KEYS = setOf(
             KeyEvent.KEYCODE_DPAD_LEFT, KeyEvent.KEYCODE_DPAD_RIGHT, KeyEvent.KEYCODE_DPAD_UP, KeyEvent.KEYCODE_DPAD_DOWN,

@@ -11,18 +11,18 @@ import java.util.Locale
 /** The forecast below the fold: now on the left, then the next hours, then the next days, each column centered. */
 class WeatherCard(private val context: Context, private val theme: Theme) {
 
-    private val glass = context.glass(theme, 20)
+    private val outline = Outline(context, theme, 20)
 
     val view = LinearLayout(context).apply {
         gravity = Gravity.CENTER_VERTICAL
         isBaselineAligned = false
-        background = glass
+        background = outline.drawable
         isFocusable = true
         setPadding(context.dp(32), context.dp(24), context.dp(32), context.dp(24))
     }
 
     fun showFocus(focused: Boolean) {
-        glass.setStroke(context.dp(if (focused) 2 else 1), withAlpha(theme.text, if (focused) 0xB0 else 0x30))
+        outline.lit(focused)
     }
 
     fun show(forecast: Forecast?) {

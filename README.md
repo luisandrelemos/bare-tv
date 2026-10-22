@@ -5,7 +5,7 @@ Your apps, a clock and the weather. Nothing else.
 
 | Before: the stock Google TV home                                                                                                  | After: Bare                                                                                                                                                 |
 | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![The stock Google TV home screen: a large recommended show, rows of suggested movies and many app icons](docs/images/before.png) | ![Bare on a TV: a greeting, a large clock, the date and the weather, three buttons top right, and the favorite apps along the bottom](docs/images/home.png) |
+| ![The stock Google TV home screen: a large recommended show, rows of suggested movies and many app icons](docs/images/before.png) | ![Bare on a TV: a greeting, a large clock, the date and the weather, three buttons top right, and a row of favorite apps below](docs/images/home.png) |
 | Recommendations, suggested shows and every app the maker put there                                                                | Your apps, a clock and the weather. Nothing else                                                                                                            |
 
 ---
@@ -20,15 +20,15 @@ of ads, "recommended" shows you never asked for and apps the maker put there.
 **Bare replaces it with a calm, simple one:**
 
 - a greeting with your name, a big clock, the date and today's weather;
-- your favorite apps along the bottom;
-- press **Down** on the remote for the TV's inputs (HDMI, antenna), the weather for the next days, and all your apps.
+- a row of your favorite apps, the one in focus lit in its own color;
+- press **Down** on the remote for the TV's inputs (HDMI, antenna, AirPlay), the weather for the next days, and all your apps.
 
 **Nothing is deleted from your TV.** Bare only puts the TV's own home screen to sleep, and can bring it back exactly
 as it was whenever you want.
 
 | Press Down: the inputs                                      | Further down: the weather                                                       | And all your apps                                      |
 | ----------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| ![The TV's inputs: TV, HDMI 1 to 4](docs/images/inputs.png) | ![The forecast: now, the next hours and the next days](docs/images/weather.png) | ![Every app on the TV in a grid](docs/images/apps.png) |
+| ![The TV's inputs: TV, HDMI 1 to 4 and AirPlay](docs/images/inputs.png) | ![The forecast: now, the next hours and the next days](docs/images/weather.png) | ![Every app on the TV in a grid](docs/images/apps.png) |
 
 ### Will it work on my TV?
 
@@ -198,6 +198,7 @@ What changes from TV to TV lives in your theme, not in special code for each bra
 | The remote's special buttons       | Codes in your theme; `keys listen` shows what your remote sends            |
 | The TV app for antenna and HDMI    | Bare knows the common ones; `live_tv_package` for others                   |
 | How inputs open                    | The standard way; `input_action` for the odd TV that needs another         |
+| AirPlay built into the TV          | In the inputs where Bare knows the receiver (MediaTek boards, like TCL)    |
 | TVs with only "Wireless debugging" | `tv.py pair`                                                               |
 
 Each tested TV gets a page in **[docs/devices](docs/devices/)**. Add yours with `python tools/tv.py report <model>`.
@@ -251,7 +252,7 @@ bare-tv/
 
 In `app/src/main/java/.../bare/`, each file does one job: `HomeActivity` (the screen and the remote), `Header`
 (greeting, clock, date), `WeatherCard` and `Weather` (the forecast), `Tile` (one app), `Glow` (the colored light),
-`Inputs` (HDMI and antenna), `RemoteKeys` (the special buttons), `Theme` (your choices).
+`Inputs` (HDMI, antenna and AirPlay), `RemoteKeys` (the special buttons), `Theme` (your choices).
 
 Building: `python tools/tv.py build`, or `./gradlew lintRelease assembleRelease`. Contributions are welcome,
 especially pages for TVs not in [docs/devices](docs/devices/) yet.

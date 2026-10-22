@@ -16,6 +16,7 @@
     <string name="weather_in">Tempo · %1$s</string>
     <string name="weather_loading">A obter a meteorologia…</string>
     <string name="all_apps">Todas as apps</string>
+    <string name="more">Mais</string>
 
     <string name="favorites_hint">Mantém OK premido numa app para a pôr ou tirar das favoritas</string>
     <string name="dock_empty">Mantém OK premido numa app (mais abaixo) para a fixar aqui</string>
