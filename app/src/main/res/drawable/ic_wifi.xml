@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Wi-Fi: three arcs over a dot, all centered on the dot. Tinted in code. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M2.81,9.81 A13,13 0 0 1 21.19,9.81 M5.64,12.64 A9,9 0 0 1 18.36,12.64 M8.46,15.46 A5,5 0 0 1 15.54,15.46" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,17.6 A1.6,1.6 0 1 1 12,20.8 A1.6,1.6 0 1 1 12,17.6 Z" />
+</vector>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Weather: clear, by night. In its own colors: shown untinted. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#F3E6A6"
+        android:pathData="M20,13.5 A8.5,8.5 0 1 1 10.5,4 A6.5,6.5 0 0 0 20,13.5 Z" />
+</vector>

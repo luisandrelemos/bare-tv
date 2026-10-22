@@ -1,0 +1,51 @@
+{
+  "name": "Luis",
+  "weather": {
+    "city": "Porto",
+    "latitude": 41.1496,
+    "longitude": -8.611
+  },
+  "colors": {
+    "background": "#07090D",
+    "text": "#F2F4F7",
+    "dim": "#8E96A3",
+    "accent": "#FFFFFF"
+  },
+  "glow": true,
+  "columns": 5,
+  "buttons": [
+    "inputs",
+    "wifi",
+    "settings"
+  ],
+  "sections": [
+    "inputs",
+    "weather",
+    "apps"
+  ],
+  "pinned": [
+    "com.netflix.ninja",
+    "com.google.android.youtube.tv"
+  ],
+  "hidden": [
+    "com.tcl.browser"
+  ],
+  "app_labels": {
+    "org.smarttube.stable": "YouTube"
+  },
+  "remote": {
+    "enabled": true,
+    "settings": [
+      83,
+      4077
+    ],
+    "live_tv": [
+      4001,
+      4020
+    ],
+    "apps": {
+      "4062": "com.netflix.ninja",
+      "190": "com.google.android.youtube.tv"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "colors": {
+    "background": "#07090D",
+    "background_top": "#1A2333",
+    "text": "#F2F4F7",
+    "dim": "#8E96A3",
+    "accent": "#FFFFFF",
+    "tile": "#1A1D22"
+  },
+  "corner_radius": 14,
+  "columns": 5,
+  "dock_size": 6,
+  "focus_scale": 1.08,
+  "clock": true,
+  "greeting": true,
+  "labels": true,
+  "pinned": [],
+  "hidden": [],
+  "glow": true,
+  "buttons": [
+    "inputs",
+    "wifi",
+    "settings"
+  ],
+  "sections": [
+    "inputs",
+    "weather",
+    "apps"
+  ],
+  "remote": {
+    "enabled": true,
+    "settings": [
+      83,
+      4077,
+      "KEYCODE_SETTINGS"
+    ],
+    "live_tv": [
+      4001,
+      4020
+    ],
+    "apps": {}
+  }
+}

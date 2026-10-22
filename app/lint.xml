@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Checks that don't fit a TV launcher, each with its reason. -->
+<lint>
+    <!-- Built and tested against the TVs it runs on (Android 14 / SDK 34); a newer target is a deliberate step. -->
+    <issue id="OldTargetApi" severity="ignore" />
+    <issue id="GradleDependency" severity="ignore" />
+    <!-- A TV banner is 320x180 dp by definition, and the system draws it rarely. -->
+    <issue id="VectorRaster" severity="ignore" />
+</lint>

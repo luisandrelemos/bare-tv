@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The TV app list's 16:9 banner: the same bar as the icon. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="180dp"
+    android:viewportWidth="320"
+    android:viewportHeight="180">
+    <path
+        android:fillColor="#0B0D10"
+        android:pathData="M0,0 H320 V180 H0 Z" />
+    <path
+        android:fillColor="#E8EAED"
+        android:pathData="M124,84 H196 A6,6 0 0 1 202,90 A6,6 0 0 1 196,96 H124 A6,6 0 0 1 118,90 A6,6 0 0 1 124,84 Z" />
+</vector>

@@ -1,0 +1,47 @@
+# TCL Google TV: tracking, ads and preloaded extras.
+# Checked on a TCL 55C6K (G08 board, Google TV 14). Other TCL Google TVs share most of these.
+#
+#   python tools/tv.py disable --list debloat/tcl-google-tv.txt
+#
+# Everything is disabled, never uninstalled, and `python tools/tv.py restore` turns it all back on.
+# tv.py refuses anything the TV needs (picture, sound, inputs, the remote, Wi-Fi, keyboard, Play Store).
+# Lines starting with # are skipped: remove the # in front of an app you don't use to turn it off too.
+
+# Tracking and telemetry
+com.tcl.ttvs                                # what's on screen (ACR) and TCL's usage analytics
+com.tcl.logkit                              # collects the TV's logs and uploads them
+com.tcl.interactive                         # background interactive content and ad service
+com.google.android.feedback                 # sends error reports to Google
+
+# Ads, promotions and silent installs
+com.tcl.tv.tclhome_passive                  # pushes TCL content to the home screen
+com.tcl.partnercustomizer                   # partner rows on Google TV's home screen
+com.tcl.messagebox                          # TCL messages and promotions
+android.autoinstalls.config.google.gtvpai   # installs partner apps without asking
+
+# Shop demo mode
+com.tcl.exhibit                             # "T-Exhibition"
+com.tcl.esticker                            # on-screen shop stickers
+
+# TCL utilities
+#com.tcl.guard                              # "Safety Guard" cleaner
+#com.tcl.ocean.instructions                 # User guide
+#com.tcl.repairguide                        # Repair guide
+#com.tcl.usercenter                         # TCL account sign-in prompts
+
+# Assistants and games
+#com.tcl.smartalexa                         # Alexa (Google Assistant on the mic button stays)
+#com.google.android.play.games              # Google Play Games
+
+# TCL content
+#com.tcl.channelplus                        # TCL Channel: free channels with ads
+#com.tcl.waterfall.overseas                 # TCL Home: TCL's content showcase
+
+# Phone and USB (keep any you use)
+#com.tcl.magiconnectfree                    # MagiConnect: send from the phone
+#com.tcl.t_solo                             # T-Solo: listen on the phone
+#com.tcl.gallery                            # Gallery: photos from a USB drive
+#com.tcl.ui_mediaCenter                     # Media Player: videos from a USB drive
+
+# Screensaver
+#com.google.android.apps.tv.dreamx          # Google's ambient mode (photos and content suggestions)

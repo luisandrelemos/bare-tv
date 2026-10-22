@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cannot_open">Não foi possível abrir %1$s</string>
+    <string name="no_apps">Ainda não há apps</string>
+
+    <string name="good_morning">Bom dia</string>
+    <string name="good_afternoon">Boa tarde</string>
+    <string name="good_evening">Boa noite</string>
+    <string name="greeting_name">%1$s, %2$s</string>
+
+    <string name="inputs">Entradas</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="settings">Definições</string>
+    <string name="live_tv">TV</string>
+    <string name="weather">Tempo</string>
+    <string name="weather_in">Tempo · %1$s</string>
+    <string name="weather_loading">A obter a meteorologia…</string>
+    <string name="all_apps">Todas as apps</string>
+
+    <string name="favorites_hint">Mantém OK premido numa app para a pôr ou tirar das favoritas</string>
+    <string name="dock_empty">Mantém OK premido numa app (mais abaixo) para a fixar aqui</string>
+    <string name="added_to_dock">%1$s adicionada às favoritas</string>
+    <string name="removed_from_dock">%1$s retirada das favoritas</string>
+    <string name="dock_full">As favoritas estão cheias</string>
+    <string name="move_hint">← →  mover   ·   ↓  tirar</string>
+
+    <string name="remote_keys">Bare: botões do comando</string>
+    <string name="remote_keys_description">Faz funcionar os botões Definições e TV do comando sem a home do Google TV. Lê apenas esses botões.</string>
+
+    <string name="tomorrow">Amanhã</string>
+    <string name="wx_range">Máx %1$d° · Mín %2$d°</string>
+    <string name="wx_rain_chance">Chuva %1$d%%</string>
+    <string name="wx_clear">Céu limpo</string>
+    <string name="wx_mostly_clear">Pouco nublado</string>
+    <string name="wx_partly">Parcialmente nublado</string>
+    <string name="wx_cloudy">Nublado</string>
+    <string name="wx_fog">Nevoeiro</string>
+    <string name="wx_drizzle">Chuvisco</string>
+    <string name="wx_rain">Chuva</string>
+    <string name="wx_showers">Aguaceiros</string>
+    <string name="wx_snow">Neve</string>
+    <string name="wx_storm">Trovoada</string>
+</resources>

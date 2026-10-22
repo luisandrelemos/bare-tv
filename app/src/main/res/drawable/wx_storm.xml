@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Weather: thunderstorm. In its own colors: shown untinted. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#AEBBCC"
+        android:pathData="M7,15 H17 A4,4 0 0 0 17.4,7 A5.5,5.5 0 0 0 6.6,8.1 A3.5,3.5 0 0 0 7,15 Z" />
+    <path
+        android:fillColor="#FFD23F"
+        android:pathData="M12.8,14.5 L9.6,19.2 H12.6 L11.2,23 L15.4,17.6 H12.4 L13.8,14.5 Z" />
+</vector>

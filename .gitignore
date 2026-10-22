@@ -1,0 +1,24 @@
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+.DS_Store
+
+# Built apps and signing keys never go in the repo.
+*.apk
+*.aab
+*.idsig
+*.keystore
+*.jks
+
+# Each TV's factory-state backup, made by tools/tv.py.
+backups/
+
+__pycache__/
+
+# Screenshots pulled from the TV by tools/tv.py.
+shots/
+
+# Your own theme, made by `tv.py setup`: your name and city stay on your computer.
+themes/mine/

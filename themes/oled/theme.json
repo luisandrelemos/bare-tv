@@ -1,0 +1,13 @@
+{
+  "colors": {
+    "background": "#000000",
+    "text": "#FFFFFF",
+    "dim": "#6B6B6B",
+    "accent": "#FFFFFF",
+    "tile": "#0D0D0D"
+  },
+  "corner_radius": 8,
+  "columns": 6,
+  "focus_scale": 1.06,
+  "labels": false
+}
