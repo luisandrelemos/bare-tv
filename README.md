@@ -1,7 +1,9 @@
-# Bare
+<h1 align="center"><img src="docs/images/logo.png" alt="Bare" width="128"></h1>
 
-**A clean, ad-free home screen for your Android TV or Google TV.**
-Your apps, a clock and the weather. Nothing else.
+<p align="center"><b>A clean, ad-free home screen for your Android TV or Google TV.</b><br>
+Your apps, a clock and the weather. Nothing else.</p>
+
+![Bare on a TV, next to its logo and the tagline "Your TV, without the noise": no ads, no bloatware, no analytics](docs/images/about.jpg)
 
 | Before: the stock Google TV home                                                                                                  | After: Bare                                                                                                                                                 |
 | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
